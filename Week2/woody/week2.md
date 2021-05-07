@@ -51,15 +51,9 @@ The floating-point types:
 
 - `double`, 8 bytes, default value = positive zero
 
-  값의 범위 : double-precision 64-bit![Screen Shot 2021-05-08 at 6.20.47 AM](/Users/woody/Library/Application Support/typora-user-images/Screen Shot 2021-05-08 at 6.20.47 AM.png)
+  값의 범위 : double-precision 64-bit
 
-  참조 : https://www.javatpoint.com/float-vs-double-java
-
-- (+) 좀 더 예쁘게 정리된 그림![Screen Shot 2021-05-08 at 6.21.36 AM](/Users/woody/Library/Application Support/typora-user-images/Screen Shot 2021-05-08 at 6.21.36 AM.png)
-
-  참조 : http://nlp.jbnu.ac.kr/PL/ch02.pdf
-
-
+  
 
 ### 프리미티브 타입과 레퍼런스 타입
 
@@ -94,11 +88,9 @@ The floating-point types:
 
 자바가 다루는 실제 데이터를 말한다.
 
-<img src="/Users/woody/Library/Application Support/typora-user-images/Screen Shot 2021-05-08 at 6.22.18 AM.png" alt="Screen Shot 2021-05-08 at 6.22.18 AM" style="zoom:50%;" />
-
-
-
-참조 : https://techvidvan.com/tutorials/literals-in-java/
+```java
+int number = 20;
+```
 
 여기서는 변수에 넣는 20이라는 변하지 않는 데이터를 리터럴이라고 한다.
 
@@ -119,7 +111,7 @@ The floating-point types:
 
 반면 지역 변수의 경우에는 반드시 초기화를 해주어야 한다.
 
-```json
+```java
 class A {
     private int a; // 기본값 0으로 자동 초기화
 		private int b = 3; // 명시적으로 초기화
@@ -131,7 +123,7 @@ class A {
 }
 ```
 
-(+) 멤버 변수 초기화
+**멤버 변수 초기화**
 
 1. 명시적 초기화
 
@@ -146,7 +138,7 @@ class A {
    - instance initialization blocks
    - static initialization blocks
 
-   ```json
+   ```java
    public class Test {
    
        static int staticVariable;
@@ -199,17 +191,17 @@ class A {
 
 **자동 타입 변환(Type Promotion = Widening or Automatic Type Conversion = Implicit type conversion )**
 
-아래와 같은 순서로 자동 형변환이 이루어진다. 사이즈가 작은 타입이 큰 타입으로 변환될 경우 발생하기 때문에 데이터 손실이 발생하지 않는다.<img src="/Users/woody/Library/Application Support/typora-user-images/Screen Shot 2021-05-08 at 6.24.40 AM.png" alt="Screen Shot 2021-05-08 at 6.24.40 AM" style="zoom:50%;" />
+아래와 같은 순서로 자동 형변환이 이루어진다. 사이즈가 작은 타입이 큰 타입으로 변환될 경우 발생하기 때문에 데이터 손실이 발생하지 않는다.
 
-참조 : https://www.geeksforgeeks.org/type-conversion-java-examples/#:~:text=Type promotion in Expressions&text=Some conditions for type promotion,long%2C float or double respectively.
+byte ➡️ short ➡️ int ➡️ long ➡️ float ➡️ double 
 
 
 
 **강제 타입 변환(Explicit type casting or narrowing)**
 
-반대로 사이즈가 큰 타입에서 작은 타입으로 변환되어야 할 경우 타입 캐스트 연산자를 통해 강제로 형변환을 해주기도 한다. 숫자형 데이터 타입을 타입 캐스팅해줄 경우 데이터 손실이 발생할 수도 있다.<img src="/Users/woody/Library/Application Support/typora-user-images/Screen Shot 2021-05-08 at 6.25.19 AM.png" alt="Screen Shot 2021-05-08 at 6.25.19 AM" style="zoom:50%;" />
+반대로 사이즈가 큰 타입에서 작은 타입으로 변환되어야 할 경우 타입 캐스트 연산자를 통해 강제로 형변환을 해주기도 한다. 숫자형 데이터 타입을 타입 캐스팅해줄 경우 데이터 손실이 발생할 수도 있다.
 
-참조 : https://www.geeksforgeeks.org/type-conversion-java-examples/#:~:text=Type promotion in Expressions&text=Some conditions for type promotion,long%2C float or double respectively.
+byte ⬅️ short ⬅️ int ⬅️ long ⬅️ float ⬅️ double 
 
 (+) 모든 Numeric 기본형 타입들은 호환이 가능하지만 Non-numeric에서 Numeric 기본형으로 혹은 반대로의 전환은 불가능하다.
 
@@ -217,24 +209,22 @@ class A {
 
 **클래스 간의 타입 캐스팅**
 
-상속관계의 클래스타입(Non-numeric)끼리는 타입 캐스팅이 가능하다. Numeric 기본형간의 형변환과 달리 상하관계가 존재한다.<img src="/Users/woody/Library/Application Support/typora-user-images/Screen Shot 2021-05-08 at 6.25.55 AM.png" alt="Screen Shot 2021-05-08 at 6.25.55 AM" style="zoom:50%;" />
+상속관계의 클래스타입(Non-numeric)끼리는 타입 캐스팅이 가능하다. Numeric 기본형간의 형변환과 달리 상하관계가 존재한다.
 
-참조 : https://www.geeksforgeeks.org/upcasting-vs-downcasting-in-java/
-
-1. 업캐스팅(up casting)
+1. 업캐스팅(up casting) : 자식 -> 부모
 
    명시적인 타입 캐스팅이 따로 필요없이 자식 클래스가 부모 클래스로 형변환이 가능하다.
 
-   ```json
+   ```java
    // Upcasting
    Parent p = new Child();
    ```
 
-2. 다운 캐스팅(down casting)
+2. 다운 캐스팅(down casting) 부모 -> 자식
 
-반대로 부모 클래스로 선언되어있던 변수를 다시 자식 클래스로 변환해주기 위해서는 명시적으로 타입 캐스팅을 해주어야 한다.(이때, 변수가 참조하고 있는 실제 데이터 타입은 Child 타입 혹은 이보다 더 하위의 클래스 타입이어야 한다)
+   반대로 부모 클래스로 선언되어있던 변수를 다시 자식 클래스로 변환해주기 위해서는 명시적으로 타입 캐스팅을 해주어야 한다.(이때, 변수가 참조하고 있는 실제 데이터 타입은 Child 타입 혹은 이보다 더 하위의 클래스 타입이어야 한다)
 
-```json
+```java
 // Trying to Downcasting Implicitly
 // Child c = new Parent(); - > compile time error
   
@@ -254,7 +244,7 @@ Child c = (Child)p;
 
 1. 1차 배열
 
-```json
+```java
 int[] arr; // 초기화 없이 변수만 선언
 int[] arr = new int[3]; // 선언과 함께 배열의 크기까지 할당, 초기값으로 채워짐
 int[] arr = {1,2,3,4,5}; // 선언 + 크기 지정 + 초기화
@@ -262,7 +252,7 @@ int[] arr = {1,2,3,4,5}; // 선언 + 크기 지정 + 초기화
 
 1. 2차 배열
 
-```json
+```java
 int[][] arr;
 int[][] arr = new int[4][3];
 int[][] arr = { {1,2},{3,4},{5,6}};
