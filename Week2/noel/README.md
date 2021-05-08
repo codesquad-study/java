@@ -139,7 +139,8 @@ public class noel{
 ##### 객체
 
 - 가비지 컬렉터가 수집하는 순간 라이프타임 종료
-
+   - https://www.youtube.com/watch?v=vZRmCbl871I
+   - https://www.notion.so/Week1-JVM-79047914fae5407190959a6cbe802ac3
 
 
 ---
