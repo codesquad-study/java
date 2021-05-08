@@ -114,6 +114,8 @@ String d = "\u0001";
 ```java
 class VariableInitialization {
   int instanceVariable; //인스턴스 변수
+  // 인스턴스 변수는 default value로 초기화된다.
+  // Linking(prepare 단계)에서 값을 설정한다.
   static int classVariable; // 클래스 변수 : VariableInitialization class 인스턴스들은 모두 사용가능하다!
   
   int initializationOfInstanceVariable = 10;		// 인스턴스 변수 초기화
@@ -122,6 +124,7 @@ class VariableInitialization {
   
   void methodName(int parameterVariable) { //매개변수
     int localVariable; //지역변수 : 메서드의 내부에 선언된 변수
+    // 지역변수는 default value로 초기화되지 않는다. -> 개발자가 직접 설정해야 한다.
   }
 }
 ```
@@ -150,6 +153,9 @@ class VariableInitialization {
 double num1 = 10; //결과 10.0
 //int num2 = 3.14 //컴파일 에러
 double num2 = 7.0f + 3.14; //결과 10.14
+
+int number = 2;
+double result = 1.0 + number;
 ```
 
 묵시적 타입 변환(Implicit Conversion)의 경우, 컴파일러가 자동적으로 수행하는 타입 변환을 말합니다. 
