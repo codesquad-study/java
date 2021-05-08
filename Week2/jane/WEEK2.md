@@ -60,6 +60,7 @@ number = 316;
   - 클래스 영역에 선언
   - static 블록을 제외한 부분 (쿠퍼짱)
   - 인스턴스 생성 시 생성됨
+ >  illustrating the default initialization of npoints(static variable), which occurs when the class Point is prepared (§12.3.2), and the default initialization of x, y, and root, which occurs when a new Point is instantiated. See §12 for a full description of all aspects of loading, linking, and initialization of classes and interfaces, plus a description of the instantiation of classes to make new class instances. (Woody ZZANG)
 - 지역 변수
   - 메서드, 생성자, 초기화 블럭 내부에 선언
   - 변수가 선언되었을 때 생성됨
