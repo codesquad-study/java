@@ -35,10 +35,17 @@
 
 
 
-[^환경, 플랫폼]: 운영체제 + CPU 아키텍처
-[^명령어]: CPU가 수행할 동작을 바이너리 코드로 정의한 것
-[^명령어 집합]: 특정 CPU를 위해 정의된 명령어의 모임
-[^명령어 집합구조]: 프로그램을 수행할 하드웨어 사이의 인터페이스에 대한 완전한 정의 및 명세
+> ### TMI
+>
+> 
+>
+> `환경, 플랫폼`: 운영체제 + CPU 아키텍처
+>
+> `명령어`: CPU가 수행할 동작을 바이너리 코드로 정의한 것
+>
+> `명령어 집합`: 특정 CPU를 위해 정의된 명령어의 모임
+>
+> `명령어 집합구조`: 프로그램을 수행할 하드웨어 사이의 인터페이스에 대한 완전한 정의 및 명세
 
 
 
@@ -107,10 +114,26 @@
 
 
 
+```java
+# Main.java
+    
+public class Main {
+    public static void main(String[] args) {
+        double position = 1.0;
+        double initial = 1.0;
+        double rate = 1.0;
+      
+        position = initial + rate * 60;
+    }
+}
+```
+
+
+
 -  JVM 자체는 자바 파일을 실행시키는 것이 아니라 Java 바이트코드를 실행시켜주는 것이므로, 우리는 한 단계의 컴파일 과정을 일단 해줘야함.
 
 ```java
-> javac 소스파일.java
+> javac Main.java
 ```
 
 - 컴파일은 JDK에 있는 자바컴파일러(javac.exe)를 사용해서 `소스파일.java` 로 부터 **JVM**이 실행할 수 있는 `소스파일.class` 파일을 생성함.
@@ -119,27 +142,85 @@
 
 - 생성된 바이트코드(.class)를 조금 더 이해하기 쉽게 보려면 아래와 같은 명령어를 사용(역어셈블)
 - ` -c`:  사람이 읽을 수 있게 해석을 해서 디스플레이 해주는 옵션
+- ` -v`:  좀 더 자세히 표현됨
 
 ```java
 > javap -c 소스파일.class
 
-Compiled from "Main.java"
-public class Main {
+Classfile /C:/Users/psh/Documents/Web/study-java/Week1/noel/sample/Main.class
+  Last modified 2021. 5. 8; size 294 bytes
+  MD5 checksum 53c526e979e4e7ff3f52bbb376b37e7a
+  Compiled from "Main.java"
+public class Main
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #5.#14         // java/lang/Object."<init>":()V
+   #2 = Double             60.0d
+   #4 = Class              #15            // Main
+   #5 = Class              #16            // java/lang/Object
+   #6 = Utf8               <init>
+   #7 = Utf8               ()V
+   #8 = Utf8               Code
+   #9 = Utf8               LineNumberTable
+  #10 = Utf8               main
+  #11 = Utf8               ([Ljava/lang/String;)V
+  #12 = Utf8               SourceFile
+  #13 = Utf8               Main.java
+  #14 = NameAndType        #6:#7          // "<init>":()V
+  #15 = Utf8               Main
+  #16 = Utf8               java/lang/Object
+{
   public Main();
+    descriptor: ()V
+    flags: ACC_PUBLIC
     Code:
-       0: aload_0
-       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
-       4: return
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 1: 0
 
   public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
     Code:
-       0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
-       3: ldc           #3                  // String test
-       5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
-       8: return
+      stack=6, locals=7, args_size=1
+         0: dconst_1
+         1: dstore_1
+         2: dconst_1
+         3: dstore_3
+         4: dconst_1
+         5: dstore        5
+         7: dload_3
+         8: dload         5
+        10: ldc2_w        #2                  // double 60.0d
+        13: dmul
+        14: dadd
+        15: dstore_1
+        16: return
+      LineNumberTable:
+        line 3: 0
+        line 4: 2
+        line 5: 4
+        line 7: 7
+        line 8: 16
 }
+SourceFile: "Main.java"
 
 ```
+
+
+
+> ### 제인짱짱
+>
+> 
+>
+> 상위 버전의 바이트 코드는 하위버전의 자바 프로그램을 실행할 수 없다. 
+>
+> → Java 14 버전으로 컴파일하고, Java 8 프로그램을 돌리면 UnsupportedClassVersionError가 발생한다.
 
 
 
@@ -180,9 +261,19 @@ Hello World!
 ##### JVM에서 실행되는 바이너리 코드
 
 - 위 각각의 Opcode(명령코드)들이 한 바이트를 의미해서 바이트코드라고 한다.
+
 - 1 byte = 2^8 = 256 개의 명령어를 만들 수 있음.
 
+  
 
+> ### 우디 짱짱
+>
+> 
+>
+> #### ✨ 자바 바이트코드 != 바이트코드
+>
+> - 파이썬 바이트코드...
+> - 범용적인 의미, 소스코드와 기계어 사이에 있는 중간언어
 
 ---
 
@@ -228,8 +319,22 @@ Hello World!
 
 - 일반적인 인터프러터 언어에 비해 훨씬 좋은 성능을 냄
 
+  
 
-
+  > ### 제인, 쿠퍼  짱짱
+  >
+  > - 자바6
+  >   - 클라이언트/서버 컴파일러?
+  > - 자바8
+  >   - tiered compilation 기본옵션 설정?
+  > - 컴파일 에러 vs 런타임 에러 중 어떤게 
+  >   - 컴파일 에러, 경험으로 맞추는 EZ
+  >
+  >   - 런타임에러를 최대한 컴파일 에러로 유도 (이펙티브 자바)
+  >
+  
+  
+  
 - (참고) https://sowhat4.tistory.com/61
 
 - (참고) https://ko.wikipedia.org/wiki/JIT_%EC%BB%B4%ED%8C%8C%EC%9D%BC
@@ -284,6 +389,8 @@ Hello World!
 
   - 모든 스레드가 공유
 
+  - out of memory 
+
     
 
 - ##### 스택
@@ -295,6 +402,8 @@ Hello World!
   - 메서드 실행이 끝나면 스택 프레임은 `pop` 
 
   - 각각의 스레드마다 하나씩 생성
+
+  - stack overflow
 
     
 
@@ -308,6 +417,7 @@ Hello World!
         - `constant pool`: 리터럴 상수 값을 저장하는 곳
 
   - Native Method Stack
+
     - Java Bytecode가 아닌 다른 언어로 작성된 메서드를 의미한다.
 
     - 성능향상을 목적으로 C/C++의 코드를 쓸 경우가 있음
@@ -317,6 +427,14 @@ Hello World!
 - ##### PC 레지스터
 
   - 스레드마다 생성, PC 값 저장
+  
+    
+
+> ### 우디 짱짱
+>
+> - Heap 크기가 부족해서 Java Object를 Heap에 할당하지 못할 경우 → `OutOfMemoryError` 발생
+>
+> ⭐️ 모든 스레드가 공유하는 영역 ==  멀티 스레드 환경 == thread-safe 하지 않다.
 
 
 
@@ -341,7 +459,7 @@ Hello World!
 
 ---
 
-##### 
+
 
 보통의 어셈블리어는 mul A B 와 같이 operator와 operand가 있음 
 
@@ -358,6 +476,7 @@ Hello World!
 
 
 - 디바이스 마다 레지스터 수는 다르다.
+
   - 레지스터를 사용하는 순간 구현에 관여하게 되어, 스택을 쓰게 되면 계산과정은 복잡하게 될 지라도 실제 H/W 스펙에 최소한으로 관여를 할 수 있기 때문이라고 생각됨.
 
 - 코드가 컴팩트 해져서 네트워크 전송에 유리해질 수 있음.
@@ -376,7 +495,7 @@ JRE = Java Runtime Environment
 
 <img src="image/jre.png" alt="jre" style="zoom: 67%;" />
 
-
+Java 9 이상 구분 안함
 
 ---
 
@@ -390,7 +509,6 @@ JRE = Java Runtime Environment
 - [10분 테코톡] JVM Stack - https://www.youtube.com/watch?v=UzaGOXKVhwU (👍)
 - (참고) JVM Instruction Set:  https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html 
 - (참고) 바이트코드 분석 예제 포스팅 : https://blog.naver.com/pcmola/222049764039
-
 
 
 

@@ -72,6 +72,12 @@
 
 ##### 프로그래밍에서는 '값을 한 번 저장하면 변경할 수 없는 공간'으로 상수(Constant)로 정의했기 때문에 이와 구분하기 위해 상수를 리터럴이라 용어를 사용한다.
 
+""으로 정의해서, 스트링 스레드풀에 들어가면 == 으로 비교가 가능함.
+
+한번 선언했던 스트링은 저기 넣고 꺼내서 
+
+new String()를 쓰면 힙영역에 들어간다 오오호 equlas로 비교해야함.
+
 
 
 <img src="image/literal.png" alt="literal" style="zoom:50%;" />
@@ -140,7 +146,10 @@ public class noel{
 
 - 가비지 컬렉터가 수집하는 순간 라이프타임 종료
    - https://www.youtube.com/watch?v=vZRmCbl871I
+   
    - https://www.notion.so/Week1-JVM-79047914fae5407190959a6cbe802ac3
+   
+     
 
 
 ---
