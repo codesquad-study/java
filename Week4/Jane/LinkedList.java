@@ -1,6 +1,8 @@
 package study;
 
 
+import java.util.Objects;
+
 class ListNode {
     int data;
     ListNode next;
@@ -20,6 +22,10 @@ class ListIterator {
 
     public boolean atEnd() {
         return current == null;
+    }
+
+    public ListNode getListNode() {
+        return current;
     }
 
     public int getData() {
@@ -89,10 +95,23 @@ public class LinkedList {
 
     public boolean contains(ListNode head, ListNode nodeToCheck) {
         for (ListIterator iter = getListIterator(); !iter.atEnd(); iter.next()) {
-            if (iter.equals(nodeToCheck)) {
+            if (iter.getListNode().equals(nodeToCheck)) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LinkedList that = (LinkedList) o;
+        return size == that.size && Objects.equals(head, that.head);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(head, size);
     }
 }
