@@ -105,8 +105,16 @@ for(String name : neames){
 ## **과제 0. JUnit 5 학습하세요.**
 
 - 인텔리J, 이클립스, VS Code에서 JUnit 5로 테스트 코드 작성하는 방법에 익숙해 질 것.
+
 - 이미 JUnit 알고 계신분들은 다른 것 아무거나!
+
 - [더 자바, 테스트](https://www.inflearn.com/course/the-java-application-test?inst=86d1fbb8) 강의도 있으니 참고하세요~
+
+  
+
+- 저장소: https://github.com/sanhee/github-dashboard
+
+
 
 ## **과제 1. live-study 대시 보드를 만드는 코드를 작성하세요.**
 
