@@ -361,85 +361,7 @@ String msg = num > 10 ? "Number is greater than 10"
 
 ## (optional) Java 13. switch 연산자
 
-- switch expressions
-- 기본 형태
-
-```java
-case label_1, label_2, ..., label_n -> expression;|throw-statement;|block 
-```
-
-- break 또는 yield문(switch 블록 내부에서 값을 반환하고 싶을 때 사용)을 빼먹기 쉽기 때문에 colon case label보다는 arrow case label을 권장
-
-```java
-public enum Day { SUNDAY, MONDAY, TUESDAY,
-    WEDNESDAY, THURSDAY, FRIDAY, SATURDAY; }
-
-// ...
-
-    int numLetters = 0;
-    Day day = Day.WEDNESDAY;
-    switch (day) {
-        case MONDAY:
-        case FRIDAY:
-        case SUNDAY:
-            numLetters = 6;
-            break;
-        case TUESDAY:
-            numLetters = 7;
-            break;
-        case THURSDAY:
-        case SATURDAY:
-            numLetters = 8;
-            break;
-        case WEDNESDAY:
-            numLetters = 9;
-            break;
-        default:
-            throw new IllegalStateException("Invalid day: " + day);
-    }
-    System.out.println(numLetters);
-```
-
-위와 같은 코드를 아래와 같이 바꿀 수 있다.
-
-```java
-    Day day = Day.WEDNESDAY;    
-    System.out.println(
-        switch (day) {
-            case MONDAY, FRIDAY, SUNDAY -> 6;
-            case TUESDAY                -> 7;
-            case THURSDAY, SATURDAY     -> 8;
-            case WEDNESDAY              -> 9;
-            default -> throw new IllegalStateException("Invalid day: " + day);
-        }
-    );    
-```
-
-- yield 사용 예제
-
-```java
-    int numLetters = switch (day) {
-        case MONDAY, FRIDAY, SUNDAY -> {
-            System.out.println(6);
-            yield 6;
-        }
-        case TUESDAY -> {
-            System.out.println(7);
-            yield 7;
-        }
-        case THURSDAY, SATURDAY -> {
-            System.out.println(8);
-            yield 8;
-        }
-        case WEDNESDAY -> {
-            System.out.println(9);
-            yield 9;
-        }
-        default -> {
-            throw new IllegalStateException("Invalid day: " + day);
-        }
-    };  
-```
+- WEEK4 선택문에서 다룸
 
 
 
@@ -473,4 +395,5 @@ public enum Day { SUNDAY, MONDAY, TUESDAY,
 
 - https://wikidocs.net/81922
 
-- https://docs.oracle.com/en/java/javase/13/language/switch-expressions.html
+
+
