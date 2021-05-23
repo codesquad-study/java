@@ -123,7 +123,7 @@ Psh.print() -> "나는 사람"
 - 기존에 없는 새로운 메서드 정의
 - 메서드명과 리턴값은 같고, 매개변수의 형식이나 개수가 달라질 수 있음.
 
-![Untitled](/img/Untitled.png)
+![Untitled](https://github.com/codesquad-study/java/tree/main/Week6/%EB%85%B8%EC%9D%84/img/Untitled.png)
 
 # 다이나믹 메소드 디스패치 (Dynamic Method Dispatch)
 
