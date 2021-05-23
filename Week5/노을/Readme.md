@@ -153,11 +153,11 @@ public class human{
     
 - `System.out.println`
 
-    ![Untitled](/img/Untitled.png)
+    ![Untitled](https://github.com/codesquad-study/java/blob/main/Week5/%EB%85%B8%EC%9D%84/img/Untitled.png)
 
-    ![Untitled 1](/img/Untitled%201.png)
+    ![Untitled 1](https://github.com/codesquad-study/java/blob/main/Week5/%EB%85%B8%EC%9D%84/img/Untitled%201.png)
 
-    ![Untitled 2](/img/Untitled%202.png)
+    ![Untitled 2](https://github.com/codesquad-study/java/blob/main/Week5/%EB%85%B8%EC%9D%84/img/Untitled%202.png)
     
 
 ### 가변인자와 오버로딩
@@ -167,7 +167,7 @@ public class human{
 - 가변인자는 내부적으로 `배열` 을 이용하여, 선언된 메서드를 호출 할 때마다 배열이 새로 생성된다. (상황에 따라 비효율적일 수 있음)
 - 대표적인 예) PrintStream 클래스의 printf()
 
-![Untitled 3](/img/Untitled%203.png)
+![Untitled 3](https://github.com/codesquad-study/java/blob/main/Week5/%EB%85%B8%EC%9D%84/img/Untitled%203.png)
 
 ```java
 public class VarArgsEx {
@@ -197,11 +197,11 @@ output >
 
 ### JAVA는 pass by value
 
-![Untitled 4](/img/Untitled%204.png)
+![Untitled 4](https://github.com/codesquad-study/java/blob/main/Week5/%EB%85%B8%EC%9D%84/img/Untitled%204.png)
 
-![Untitled 5](/img/Untitled%205.png)
+![Untitled 5](https://github.com/codesquad-study/java/blob/main/Week5/%EB%85%B8%EC%9D%84/img/Untitled%205.png)
 
-![Untitled 6](/img/Untitled%206.png)
+![Untitled 6](https://github.com/codesquad-study/java/blob/main/Week5/%EB%85%B8%EC%9D%84/img/Untitled%206.png)
 
 - 이미지  출처 : [https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value](https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value)
 
