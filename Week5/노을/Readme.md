@@ -197,7 +197,7 @@ output >
 
 ### JAVA는 pass by value
 
-![Untitled 4](https://github.com/codesquad-study/java/blob/main/Week5/%EB%85%B8%EC%9D%84/img/Untitled%204.png)
+![Untitled 4](https://media.vlpt.us/images/san/post/0b137f5e-b5eb-41ce-a0a4-791affeb9446/pass-by-reference-vs-pass-by-value-animation.gif)
 
 ![Untitled 5](https://github.com/codesquad-study/java/blob/main/Week5/%EB%85%B8%EC%9D%84/img/Untitled%205.png)
 
@@ -321,7 +321,7 @@ class Animal {
 - int 값을 가지고 있는 이진 트리를 나타내는 Node 라는 클래스를 정의하세요.
 - int value, Node left, right를 가지고 있어야 합니다.
 - BinrayTree라는 클래스를 정의하고 주어진 노드를 기준으로 출력하는 bfs(Node node)와 dfs(Node node) 메소드를 구현하세요.
-- DFS는 왼쪽, 루트, 오른쪽 순으로 순회하세요.https://velog.io/@honux/%EB%B0%B1%EA%B8%B0%EC%84%A0-%EC%9E%90%EB%B0%94-%EB%9D%BC%EC%9D%B4%ED%8A%B8-%EC%8A%A4%ED%84%B0%EB%94%94-5)
+- DFS는 왼쪽, 루트, 오른쪽 순으로 순회하세요.
 
 ---
 
@@ -360,4 +360,4 @@ class Animal {
 
 [함수(Function) VS 메소드(Method)](https://zeddios.tistory.com/233)
 
-[백기선 자바 라이브 스터디 5: 클래스](
+[백기선 자바 라이브 스터디 5: 클래스](https://velog.io/@honux/%EB%B0%B1%EA%B8%B0%EC%84%A0-%EC%9E%90%EB%B0%94-%EB%9D%BC%EC%9D%B4%ED%8A%B8-%EC%8A%A4%ED%84%B0%EB%94%94-5)
