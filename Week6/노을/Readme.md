@@ -85,45 +85,118 @@ ex) toString()
 - 매개변수가 같아야 한다.
 - 반환타입이 같아야 한다.
 
-## Static Method의 Hiding
+## Hiding Methods
 
-- `static method`의 경우 `자식 클래스`에서 동일한 메서드를 재정의하게되면 `조상 클래스` 메서드를 가리게됨
-- 따라서 `static method`는 하위 혹은 상위 클래스의 호출에 영향을 받음
+> If a subclass defines a static method with the same signature as a static method in the superclass, then the method in the subclass hides the one in the superclass.
+The version of the hidden static method that gets invoked depends on whether it is invoked from the superclass or the subclass.
+
+- 부모와 동일한 시그니처의 static 메소드를 자식에서 선언하면 부모 static 메서드를 가린다.
+- 히든 스태틱 메서드의 경우 부모 또는 자식 클래스에서 호출됐는지에 따라 메서드가 다르게 처리된다.
+
+도대체 가린다는 의미가 뭐야?! 
+
+아래 예제를 봐보자
 
 ```java
-public class Human{
-	public static void print(){
-    print("나는 사람");
-  }
+public class Animal {
+    public static void testClassMethod() {
+        System.out.println("The static method in Animal");
+    }
+    public void testInstanceMethod() {
+        System.out.println("The instance method in Animal");
+    }
 }
-
-public class SanHee extends Human{
-  @Override
-  public static void print(){
-    print("나는 산희");
-  }
-}
-
-public class Park extends SanHee{...}
-public class Psh extends Human {...}
-
----------
-output
-
-Human.print() -> "나는 사람"
-SanHee.print() -> "나는 산희"
-Park.print() -> "나는 산희"
-Psh.print() -> "나는 사람"
 ```
 
-- [https://github.com/ByungJun25/study/tree/main/java/whiteship-study/6week](https://github.com/ByungJun25/study/tree/main/java/whiteship-study/6week)
+- 충분히 예상할 수 있는 결과다.
+
+```java
+public class Cat extends Animal {
+    
+    @Override
+    public void testInstanceMethod() {
+        System.out.println("The instance method in Cat");
+    }
+
+    public static void main(String[] args) {
+        Cat myCat = new Cat();
+        Animal myAnimal = myCat;
+
+        testClassMethod();
+        Cat.testClassMethod();
+        Animal.testClassMethod();
+        myAnimal.testClassMethod();
+        myAnimal.testInstanceMethod();
+    }
+}
+
+-----------------
+output>
+
+The static method in Animal
+The static method in Animal
+The static method in Animal
+The static method in Animal
+The instance method in Cat
+```
+
+- 만약, 부모의 static 메서드와 동일한 시그니처로 자식 클래스에서 생성을 한다면?
+
+```java
+public class Cat extends Animal {
+    
+    public static void testClassMethod() {
+        System.out.println("The static method in Cat");
+    }
+
+    @Override
+    public void testInstanceMethod() {
+        System.out.println("The instance method in Cat");
+    }
+
+    public static void main(String[] args) {
+        Cat myCat = new Cat();
+        Animal myAnimal = myCat;
+
+        testClassMethod();
+        Cat.testClassMethod();
+        Animal.testClassMethod();
+        myAnimal.testClassMethod();
+        myAnimal.testInstanceMethod();
+    }
+}
+
+--------------
+
+output>
+
+The static method in Cat   ❗ 자식 static method가 부 static method를 숨김
+The static method in Cat   ❗ 자식 static method가 부 static method를 숨김
+The static method in Animal
+The static method in Animal
+The instance method in Cat
+```
+
+## Static 메서드는 오버라이드 할 수 없다.
+
+```java
+왜냐하면 static method는 상속이 되지 않기 때문이다.
+static 메서드는 클래스가 컴파일 되는 시점에 결정이 되지만
+Override에 경우에는 런타임 시점에 사용될 메서드가 결정이 된다. 그래서 애초에 성립하기 어렵다.
+
+그리고 애초에 static에 경우 클래스단위로 만들어지기 때문에 객체 단위로 형성되는 Override 성립될 수 없다.이런 문제를 방지하기 위해서는 재정의 하기 위해서는 무조건 @Override를 붙혀 주자.
+
+@Override만 붙여주어도 이렇게 바로 문제가 된다는 것을 확인 할 수 있다.
+```
+
+- 출처: [https://wedul.site/457](https://wedul.site/457)
 
 ## 오버로딩
 
 - 기존에 없는 새로운 메서드 정의
 - 메서드명과 리턴값은 같고, 매개변수의 형식이나 개수가 달라질 수 있음.
 
-![Untitled](https://github.com/codesquad-study/java/tree/main/Week6/%EB%85%B8%EC%9D%84/img/Untitled.png)
+![Untitled](https://github.com/codesquad-study/java/blob/main/Week6/%EB%85%B8%EC%9D%84/img/Untitled.png)
 
 # 다이나믹 메소드 디스패치 (Dynamic Method Dispatch)
 
