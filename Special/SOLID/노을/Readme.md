@@ -46,7 +46,7 @@ DIP(Dependency Inversion Principle) : 의존 역전 원칙
 
 - 하나의 클래스에 두 가지 역할(쓰기, 출력)
 
-![SOLID%20%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%8E%E1%85%B5%E1%86%A8%2071470ff4711d460b8fb71875d9889769/Untitled%201.png](./img/Untitled%201-1622969743935.png)
+![SOLID%20%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%8E%E1%85%B5%E1%86%A8%2071470ff4711d460b8fb71875d9889769/Untitled%201.png](./img/Untitled%201.png)
 
 ## SRP 적용 사례
 
