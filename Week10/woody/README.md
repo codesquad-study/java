@@ -87,7 +87,7 @@
 
 #### (+) start()와 run()
 
-<img src="./images/start-run.png" alt="start-run" style="zoom:50%;" />
+<img src="./images/start-run.png" alt="start-run" style="zoom: 33%;" />
 
 - start() 호출 시
   - New ➡️ Runnable
@@ -238,7 +238,9 @@ class CustomRunnable implements Runnable {
 
 - 데이터 무결성 : 모든 작업에 있어 데이터의 정확성, 일관성이 유지되는 특성
 
-#### 1. 동기화 문제 해결 - synchronized 키워드 활용
+#### 1. 동기화 문제 해결 
+
+#### 1-1. synchronized 키워드 활용
 
 synchronized 키워드는 크게 두 가지 영역에서 사용이 가능하다.
 
@@ -263,6 +265,66 @@ public synchronized void syncMethod () {
 // 특정한 영역을 임계영역으로 설정
 synchronized(객체의 참조변수) {
     ......
+}
+```
+
+#### 1-2.  Atomic action 
+
+Atomic action이란, 해당 작업이 도중에 멈추는 일 없이, 완전히 모두 실행되거나 아예 발생하지 않거나 둘 중 하나의 상태를 가지도록 하는 액션을 말한다.  한 마디로 모든 관련있는 작업들이 한꺼번에 일어나는 작업이다. 이를 달성하는데 주로 voliate 키워드나 atomic 변수를 활용한다.
+
+#### voliate 키워드
+
+- Java 변수를 Main Memory에 저장하여 모든 스레드가 해당 voliate 변수의 모든 수정 사항들을 공유한다.
+- (-) 모든 스레드가 동일한 변수를 공유하고 있기 때문에 해당 변수가 외부에서 변경되면 사용하고 있는 모든 스레드가 영향을 받기 때문에 side effect가 발생할 수 있기 때문에 잘 사용해야 한다.
+
+#### Atomic Variables
+
+- [`java.util.concurrent`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html) package 에 존재하는 클래스를 활용
+
+- 멀티 스레드 환경에서 변수값을 참조할 때 메인 메모리가 아닌 CPU 캐시에 있는 값을 참조한다. 때문에 동시성 문제로 CPU 캐시에서 잘못된 값을 참조하는 경우가 있을 수 있다.
+
+- CAS(Compared And Swap) 알고리즘 : 현재 쓰레드에 저장된 값과 메인 메모리에 저장된 값을 비교하여 
+
+  1. 일치하는 경우 새로운 값으로 교체
+
+  2. 일치하지 않는다면 실패 후 재시도
+
+  
+
+예를 들어 아래와 같이 `synchronized` 키워드로 동시성 문제를 아래와 같이 해결해 줄 수 있다.
+
+```java
+class SynchronizedCounter {
+    private int c = 0;
+
+    public synchronized void increment() { c++; }
+
+    public synchronized void decrement() { c--; }
+
+    public synchronized int value() { return c; }
+}
+```
+
+하지만, liveness (deadlock, race condition) 문제가 발생할 수 있다는 점 때문에 클래스가 크고 복잡해지게 된다면 아래와 같이 atomic 변수를 활용하는 것도 좋은 방법이다.
+
+```java
+import java.util.concurrent.atomic.AtomicInteger;
+
+class AtomicCounter {
+    private AtomicInteger c = new AtomicInteger(0);
+
+    public void increment() {
+        c.incrementAndGet();
+    }
+
+    public void decrement() {
+        c.decrementAndGet();
+    }
+
+    public int value() {
+        return c.get();
+    }
+
 }
 ```
 
@@ -309,15 +371,57 @@ class WithdrawThread implements Runnable {
 ```
 
 1. 동기화 처리를 하지 않은 경우
+
+   ```java
+    if (balance >= money) {
+         try {
+               Thread.sleep(1000);
+         } catch (InterruptedException e) {}
+         balance -= money;
+     }
+   ```
+
+   
+
    - 한 스레드가 음수 조건(if문)을 통과한 뒤 다른 스레드에게 제어권을 넘겨주게 되면 두 스레드가 모두 출금을 진행하게 되어 최종적인 balance가 음수가 될 가능성이 있다.
 
 <img src="./images/동기화-미처리.png" alt="동기화-미처리" style="zoom:50%;" />
 
  2 & 3. 동기화 처리를 해준 경우
 
+```java
+// 동기화 메소드
+    public synchronized void withdrawWithSyncMethod(int money) {
+        if (balance >= money) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+
+            balance -= money;
+        }
+    }
+
+    // 동기화 블록
+    public void withdrawWithSyncBlock(int money) {
+        synchronized (this) {
+            if (balance >= money) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                }
+
+                balance -= money;
+            }
+        }
+    }
+```
+
+
+
 - 정상적으로 작동
 
-<img src="/Users/woody/Study/java_study/java/Week10/woody/images/동기화-처리.png" alt="동기화-처리" style="zoom:50%;" />
+<img src="./images/동기화-처리.png" alt="동기화-처리" style="zoom:50%;" />
 
 
 
@@ -331,7 +435,7 @@ class WithdrawThread implements Runnable {
 
 #### 3. synchronized 키워드는 자기자신에게만!
 
-- (+) synchronized 키워드는 자기자신에만 걸어줄 수 있다. 예를 들어 아래와 같이 static 변수에는 걸어줄 수 없다.
+- (+) synchronized 키워드는 자기자신에만 걸어줄 수 있다. primitive, static 변수에는 걸어줄 수 없다.
 
 ```java
 public static long result = 0;
@@ -349,23 +453,44 @@ synchronized(result){ // 컴파일 에러 발생 -> result가 object가 아니�
 1. 동기화된 임계구역 코드를 수행하는 도중 작업을 더 이상 진행할 수 없다면 wait() 호출하여 스레드가 객체에 대한 락을 반납하고 대기 상태가 된다.
 2. 나중에 작업을 진행할 수 있는 상황이 되면 notify()를 호출해서 wait()를 통해 중단했던 쓰레드가 다시 락을 얻어 작업을 진행할 수 있게 된다.
 
+```java
+public synchronized void withdrawWithWait(int money) {
+        while (balance < money) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+        balance -= money;
+    }
+
+    public synchronized void deposit(int money) {
+        // balance 값을 업데이트하고난 뒤,
+        // waiting pool의 쓰레드에게 작업 종료임을 알려주기
+        balance += money;
+        notify();
+    }
+```
+
 
 
 ### 데드락
 
-#### 상호 배제 (Mutual exclusion)
+아래 4가지 특성을 가지고 있는 경우를 데드락이라고 정의한다.
+
+#### 1. 상호 배제 (Mutual exclusion)
 
 - 자원은 한 번에 한 프로세스만이 사용할 수 있어야 한다.
 
- #### 점유 대기 (Hold and wait)
+ #### 2. 점유 대기 (Hold and wait)
 
 - 최소한 하나의 자원을 점유하고 있으면서 다른 프로세스에 할당되어 사용하고 있는 자원을 추가로 점유하기 위해 대기하는 프로세스가 있어야 한다.
 
-#### 비선점 (No preemption)
+#### 3. 비선점 (No preemption)
 
 - 다른 프로세스에 할당된 자원은 사용이 끝날 때까지 강제로 빼앗을 수 없어야 한다.
 
-#### 순환 대기 (Circular wait)
+#### 4. 순환 대기 (Circular wait)
 
 - 프로세스의 집합 {P1,P2…Pn-1, Pn}에서 P1는 P2가 점유한 자원을 대기하고 P2는 P3가 점유한 자원을 대기하고 ...  Pn은 P1이 점유한 자원을 요구해야 한다.
 - 이렇게 각 프로세스는 순환적으로 다음 프로세스가 요구하는 자원을 가지고 있다.
@@ -375,6 +500,8 @@ synchronized(result){ // 컴파일 에러 발생 -> result가 object가 아니�
 ### Reference
 
 - 전체적인 참고
+  - https://docs.oracle.com/javase/tutorial/essential/concurrency/atomic.html
+  - https://docs.oracle.com/javase/tutorial/essential/concurrency/atomicvars.html
   - https://www.notion.so/ac23f351403741959ec248b00ea6870e
   - https://honbabzone.com/java/java-thread/
   - https://wisdom-and-record.tistory.com/48
