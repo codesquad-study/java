@@ -126,7 +126,7 @@ class Main {
 | static int MIN_PRIORITY (1)  |   스레드가 가질 수 있는 최소 우선순위를 명시함.   |
 | static int NORM_PRIORITY (5) | 스레드가 생성될 때 가지는 기본 우선순위를 명시함. |
 
-```
+```java
 public class JavaSetPriorityExp2 extends Thread
 {  
     public void run()
@@ -164,9 +164,48 @@ Priority of thread is: 1
 - main() 메서드가 실행되는 쓰레드
 - single-thread application: main() 쓰레드만 있는 어플리케이션
 
-- Daemon thread: 메인쓰레드의 작업을 돕는 쓰레드, main 쓰레드가 종료되면 데몬 쓰레드는 강제 종료된다.
+- Daemon thread: 리눅스와 같은 유닉스계열의 운영체제에서 백그라운드로 동작하는 프로그램
+  - 일반 쓰레드가 종료되면 데몬 쓰레드는 강제 종료된다.
   - 일정 시간마다 자동으로 수행되는 저장 및 화면 갱신 등에 이용
+```
+ // Runnable을 구현하는 DaemonThread클래스를 작성
+    public class DaemonThread implements Runnable {
 
+        // 무한루프안에서 0.5초씩 쉬면서 데몬쓰레드가 실행중입니다를 출력하도록 run()메소드를 작성
+        @Override
+        public void run() {
+            while (true) {
+                System.out.println("데몬 쓰레드가 실행중입니다.");
+
+                try {
+                    Thread.sleep(500);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    break; //Exception발생시 while 문 빠찌도록 
+                }
+            }
+        }
+
+        public static void main(String[] args) {
+            // Runnable을 구현하는 DaemonThread를 실행하기 위하여 Thread 생성
+            Thread th = new Thread(new DaemonThread());
+            // 데몬쓰레드로 설정
+            th.setDaemon(true);
+            // 쓰레드를 실행
+            th.start();
+
+            // 메인 쓰레드가 1초뒤에 종료되도록 설정. 
+            // 데몬쓰레드는 다른 쓰레드가 모두 종료되면 자동종료.
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }   
+            System.out.println("메인 쓰레드가 종료됩니다. ");    
+        }   
+    }
+ ```
 
 
 ## 동기화
@@ -183,7 +222,7 @@ Priority of thread is: 1
   - 메서드 앞에 synchronized가 붙어있으면 Monitor Lock(intrinsic lock, 모든 객체가 갖고있는 고유한 락)을 획득할 수 있다.
   - Monitor Lock은 wait() 메서드를 만나거나 메서드 실행이 종료되기 전가지 유지된다.
 
-```
+```java
 public synchronized void synchronisedCalculate() {
     setSum(getSum() + 1);
 }
@@ -197,7 +236,7 @@ public synchronized void synchronisedCalculate() {
 - 둘 이상의 쓰레드가 락을 획득하기 위해 대기하는데, 해당 락을 잡고있는 쓰레드도 다른 락을 기다리고 있어 block 상태에 놓이는 것
 - T1은 T2가 갖고있는 lock2를 기다리고 있고, T2는 T1이 갖고있는 lock1을 대기하는 상황
 
-```
+```java
 public class DeadlockExample {
 
     private Lock lock1 = new ReentrantLock(true);
@@ -272,3 +311,4 @@ Thread T2: lock2 acquired, waiting to acquire lock1.
 - http://happinessoncode.com/2017/10/04/java-intrinsic-lock/
 
 - https://www.baeldung.com/java-deadlock-livelock#:~:text=A%20deadlock%20occurs%20when%20two,the%20deadlocked%20threads%20cannot%20progress.
+- https://programmers.co.kr/learn/courses/9/lessons/279
