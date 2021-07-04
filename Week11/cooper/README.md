@@ -297,6 +297,11 @@ public abstract class Enum<E extends Enum<E>> implements Comparable<E>, Serializ
       }
   }
   
+  //결과
+  //enumSet1 = [ADD, MODIFY]
+  //enumSet2 = [SUBSTRACT, MULTIPLY]
+  //enumSet3 = [ADD, SUBSTRACT, MULTIPLY, MODIFY]
+  //enumSet4 = [SUBSTRACT, MULTIPLY]
   ```
 
   <br>
