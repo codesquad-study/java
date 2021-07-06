@@ -36,6 +36,15 @@
 | Blocking / Non-Blocking 방식 | Blocking Only                                 | Both                                                |
 | Use Case                     | 연결 클라이언트가 적고, IO가 큰 경우 (대용량) | 연결 클라이언트가 많고 IO 처리가 작은 경우 (저용량) |
 
+### NIO 성능 
+   - 기존 IO에서는 InputStream과 OutputStream 각각에 버퍼를 연결해야 하고 입력 버퍼에 저장된 데이터를 출력 버퍼로 이동하는 과정이 필요했지만, NIO에서는 생략 가능하다.
+   - allocate 말고 allocateDirect 메서드를 사용하면 Direct 버퍼를 생성한다.
+     - `ByteBuffer buf = ByteBuffer.allocateDirect(1024);`
+   - 가상머신이 생성하고 유지하는 버퍼는 Non-direct 버퍼이며, Non-direct 버퍼를 사용할 경우 `파일>운영체제>가상버신 버퍼>실행중인 자바 프로그램`의 흐름으로 데이터가 전달된다.
+   - Direct 버퍼를 사용하면 이 과정이 `파일>운영체제 버퍼>실행중인 자바 프로그램`으로 단축된다.
+   - 그러나 Direct 버퍼는 Non-direct 버퍼에 비해 할당과 해제에 드는 비용이 크기 때문에 할당과 해제가 빈번히 일어난다면 Non-direct 버퍼의 성능이 더 좋을 수 있다.
+
+
 ### InputStream과 OutputStream
 
 #### InputStream 메서드
