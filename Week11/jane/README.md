@@ -153,8 +153,9 @@ public enum Status {
   CLOSE(false);
 
   public static Status parse(String statusStr) {
-    Status.valueOf(statusStr.toUpperCase()) // 값이 이상하면 exception 이 던져짐 
+    return Status.valueOf(statusStr.toUpperCase()); 
   }
+    
   public Boolean getBoolean() { return this.bool }
 }
 ```    
