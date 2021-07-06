@@ -142,6 +142,9 @@ EnumSet.copyOf(EnumSet.of(Color.BLACK, Color.WHITE));
 ## 참고
 ### EnumUtils 클래스
 - [EnumUtils 공식문서](https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/EnumUtils.html)
+```
+    EnumUtils.isValidEnum(MembershipType.class, membershipId)
+```
 - [EnumUtils.java](https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/EnumUtils.java)
 ### parse, don't validate
 ```java
