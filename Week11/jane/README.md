@@ -139,10 +139,24 @@ EnumSet.complementOf(EnumSet.of(Color.BLACK, Color.WHITE));
 EnumSet.copyOf(EnumSet.of(Color.BLACK, Color.WHITE));
 ```
 
-## 참고: EnumUtils 클래스
+## 참고
+### EnumUtils 클래스
 - [EnumUtils 공식문서](https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/EnumUtils.html)
 - [EnumUtils.java](https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/EnumUtils.java)
+### parse, don't validate
+```java
+public enum Status {
+  OPEN(true), 
+  CLOSE(false);
 
+  public static Status parse(String statusStr) {
+    Status.valueOf(statusStr.toUpperCase()) // 값이 이상하면 exception 이 던져짐 
+  }
+  public Boolean getBoolean() { return this.bool }
+}
+```    
+    
+    
 ---
 
 ***Source***
