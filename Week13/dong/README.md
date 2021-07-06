@@ -77,7 +77,7 @@ text 데이터를 입출력하는 스트림
 데이터는 2바이트 단위로 처리
 일반적인 텍스트 및 JSON, HTML 등을 송수신할 때 주로 사용
 
-### 스트림 상속관계 사진 보고가라 : https://bingbingpa.github.io/java/whiteship-live-study-week13/
+### 스트림 상속관계 사진  : https://bingbingpa.github.io/java/whiteship-live-study-week13/
 
 <br>
 <hr>
